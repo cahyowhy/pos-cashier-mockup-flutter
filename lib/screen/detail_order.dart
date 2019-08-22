@@ -6,6 +6,7 @@ import 'package:padi_pos_kasir/component/product_item.dart';
 import 'package:padi_pos_kasir/model/order.dart';
 import 'package:padi_pos_kasir/model/product.dart';
 import 'package:padi_pos_kasir/util/StringUtil.dart';
+import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 
 class DetailOrderScreen extends StatefulWidget {
   final List<Order> _pesanans;
@@ -20,9 +21,14 @@ class _DetailState extends State<DetailOrderScreen>
     with SingleTickerProviderStateMixin {
   final _payCashTextController =
       MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  
 
   int _cash = 0;
+  
+  
+  
   TabController _controller;
+  
   List<Order> _pesanans = [];
   List<String> _serviceTypes = ["Cash", "GOPAY", "LAINYA"];
 
@@ -133,7 +139,10 @@ class _DetailState extends State<DetailOrderScreen>
                       "YA",
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () => _showChargeSuccess(price, metode),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      _showChargeSuccess(price, metode);
+                    },
                   ))),
                   SizedBox(width: 8),
                   Expanded(

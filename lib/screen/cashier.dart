@@ -15,13 +15,20 @@ class _ProductScreen {
 }
 
 class CashierScreen extends StatefulWidget {
+  final void Function() fnMenuBar;
+
+  CashierScreen(this.fnMenuBar, {Key key}) : super(key: key);
+
   @override
-  _CashierState createState() => _CashierState();
+  _CashierState createState() => _CashierState(this.fnMenuBar);
 }
 
 class _CashierState extends State<CashierScreen> {
   List<Product> _products = Product.fakerizes(total: 12);
   List<Order> _pesanans = [];
+  final void Function() _fnMenuBar;
+
+  _CashierState(this._fnMenuBar);
 
   List<_ProductScreen> _productDatas() {
     if (_products.length == 0) {
@@ -241,7 +248,7 @@ class _CashierState extends State<CashierScreen> {
                               Icons.menu,
                               size: 28,
                             ),
-                            onPressed: () {},
+                            onPressed: _fnMenuBar,
                           )),
                       margin: EdgeInsets.only(right: 12.0),
                     ),
@@ -281,7 +288,11 @@ class _CashierState extends State<CashierScreen> {
           TabBarView(
             children: _buildProductList(),
           ),
-          _renderInfoOrder()
+          _renderInfoOrder(),
+          FlatButton(
+            child: Text("cek bluetooth"),
+            onPressed: () => Navigator.of(context).pushNamed('/cek-printer'),
+          )
         ]),
       ),
     );
