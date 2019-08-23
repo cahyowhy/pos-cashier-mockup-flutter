@@ -28,6 +28,7 @@ dependencies:
   intl: ^0.15.8
   flutter_masked_text: ^0.8.0
   blue_thermal_printer: ^1.0.8
+  mqtt_client: ^5.5.3
 
 dev_dependencies:
   flutter_test:

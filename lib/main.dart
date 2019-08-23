@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:padi_pos_kasir/screen/cashier.dart';
 import 'package:padi_pos_kasir/screen/cek_printer.dart';
 import 'package:padi_pos_kasir/screen/detail_order.dart';
+import 'package:padi_pos_kasir/service/socket.dart';
 
 import 'model/order.dart';
 
@@ -13,9 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-      new GlobalKey<ScaffoldState>(debugLabel: "main_home");
-
   Widget _makeRoute(
       {@required BuildContext context,
       @required String routeName,
@@ -24,8 +24,29 @@ class _MyAppState extends State<MyApp> {
         context: context, routeName: routeName, arguments: arguments);
   }
 
-  void openDrawer() {
-    // this._scaffoldKey.currentState.openDrawer();
+  @override
+  void initState() {
+    _consumeSocket();
+
+    // try {
+    //   InternetAddress.lookup('192.168.0.137').then((result) {
+    //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+    //       print('connected');
+    //     }
+    //   });
+    // } on SocketException catch (_) {
+    //   print('not connected');
+    // }
+
+    super.initState();
+  }
+
+  void _consumeSocket() {
+    Socket.listenMessage((message) {
+      debugPrint(message.toString() + " from MAIN");
+    });
+
+    Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');
   }
 
   Widget _buildRoute({
@@ -34,11 +55,11 @@ class _MyAppState extends State<MyApp> {
     Object arguments,
   }) {
     switch (routeName) {
-      case '/':
-        return CashierScreen(this.openDrawer);
-      case '/cek-printer':
+      case 'Cashier':
+        return CashierScreen();
+      case 'Printer':
         return CekPrinter();
-      case '/order-detail':
+      case 'Order Detail':
         List<Order> pesanans = (arguments as List<Order>);
 
         return DetailOrderScreen(pesanans: pesanans);
@@ -55,50 +76,15 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: (RouteSettings settings) {
+      initialRoute: 'Cashier',
+      onGenerateRoute: (RouteSettings setting) {
         return MaterialPageRoute(
           builder: (BuildContext context) {
-            return Scaffold(
-                // key: _scaffoldKey,
-                drawer: Drawer(
-                    // Add a ListView to the drawer. This ensures the user can scroll
-                    // through the options in the drawer if there isn't enough vertical
-                    // space to fit everything.
-                    child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    DrawerHeader(
-                      child: Text('Drawer Header'),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Item 1'),
-                      onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Item 2'),
-                      onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                )),
-                body: _makeRoute(
-                  context: context,
-                  routeName: settings.name,
-                  arguments: settings.arguments,
-                ));
+            return _makeRoute(
+              context: context,
+              routeName: setting.name,
+              arguments: setting.arguments,
+            );
           },
           maintainState: true,
           fullscreenDialog: false,

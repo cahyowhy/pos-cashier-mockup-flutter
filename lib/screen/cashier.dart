@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:padi_pos_kasir/component/counter.dart';
+import 'package:padi_pos_kasir/component/drawer.dart';
 import 'package:padi_pos_kasir/component/product_item.dart';
 import 'package:padi_pos_kasir/model/order.dart';
 import 'package:padi_pos_kasir/model/product.dart';
@@ -15,20 +16,15 @@ class _ProductScreen {
 }
 
 class CashierScreen extends StatefulWidget {
-  final void Function() fnMenuBar;
-
-  CashierScreen(this.fnMenuBar, {Key key}) : super(key: key);
+  CashierScreen({Key key}) : super(key: key);
 
   @override
-  _CashierState createState() => _CashierState(this.fnMenuBar);
+  _CashierState createState() => _CashierState();
 }
 
 class _CashierState extends State<CashierScreen> {
   List<Product> _products = Product.fakerizes(total: 12);
   List<Order> _pesanans = [];
-  final void Function() _fnMenuBar;
-
-  _CashierState(this._fnMenuBar);
 
   List<_ProductScreen> _productDatas() {
     if (_products.length == 0) {
@@ -116,7 +112,7 @@ class _CashierState extends State<CashierScreen> {
         ? Material(
             child: InkWell(
                 onTap: () => Navigator.of(context)
-                    .pushNamed('/order-detail', arguments: _pesanans),
+                    .pushNamed('Order Detail', arguments: _pesanans),
                 child: Container(
                     height: 68,
                     padding: EdgeInsets.all(8),
@@ -227,7 +223,23 @@ class _CashierState extends State<CashierScreen> {
     return DefaultTabController(
       length: productDatas.length,
       child: Scaffold(
+        drawer: CommonDrawer(),
         appBar: AppBar(
+          leading: Builder(builder: (BuildContext ctx) {
+            return SizedBox(
+                height: 28,
+                width: 28,
+                child: IconButton(
+                  padding: new EdgeInsets.all(0.0),
+                  icon: Icon(
+                    Icons.menu,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(ctx).openDrawer();
+                  },
+                ));
+          }),
           bottom: TabBar(
             isScrollable: true,
             tabs: tabs,
@@ -238,20 +250,6 @@ class _CashierState extends State<CashierScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                    Container(
-                      child: SizedBox(
-                          height: 28,
-                          width: 28,
-                          child: IconButton(
-                            padding: new EdgeInsets.all(0.0),
-                            icon: Icon(
-                              Icons.menu,
-                              size: 28,
-                            ),
-                            onPressed: _fnMenuBar,
-                          )),
-                      margin: EdgeInsets.only(right: 12.0),
-                    ),
                     Text('Order',
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 28))
@@ -289,10 +287,6 @@ class _CashierState extends State<CashierScreen> {
             children: _buildProductList(),
           ),
           _renderInfoOrder(),
-          FlatButton(
-            child: Text("cek bluetooth"),
-            onPressed: () => Navigator.of(context).pushNamed('/cek-printer'),
-          )
         ]),
       ),
     );

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 24 24"
+   style="enable-background:new 0 0 24 24;"
+   xml:space="preserve"
+   sodipodi:docname="Menu_Kasir.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"><metadata
+   id="metadata29"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs27" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1016"
+   id="namedview25"
+   showgrid="false"
+   inkscape:zoom="19.666667"
+   inkscape:cx="10.419066"
+   inkscape:cy="8.9486389"
+   inkscape:window-x="0"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#FFFFFF;}
+</style>
+<g
+   id="g22"
+   style="fill:#1a1a1a">
+	<g
+   id="g6"
+   style="fill:#1a1a1a">
+		<path
+   class="st0"
+   d="M15.9,3.7v0.4h-1.4V3.7c0-0.7-0.5-1.2-1.2-1.3L8.9,4.1H5l7.9-3c0.1,0,0.2,0,0.3,0C14.7,1,15.9,2.2,15.9,3.7z"
+   id="path4"
+   style="fill:#1a1a1a" />
+	</g>
+	<g
+   id="g10"
+   style="fill:#1a1a1a">
+		<path
+   class="st0"
+   d="M17.1,4.1H4.9c-0.4,0-0.8,0.4-0.8,0.8v17.4c0,0.4,0.4,0.8,0.8,0.8h12.2c1.5,0,2.7-1.2,2.7-2.7V6.8    C19.9,5.3,18.7,4.1,17.1,4.1z M18.3,20.3c0,0.6-0.5,1.2-1.2,1.2H5.7V5.6h11.5c0.6,0,1.2,0.5,1.2,1.2V20.3z"
+   id="path8"
+   style="fill:#1a1a1a" />
+	</g>
+	<g
+   id="g14"
+   style="fill:#1a1a1a">
+		<path
+   class="st0"
+   d="M16.7,12.3H7.3c-0.2,0-0.4-0.2-0.4-0.4V7.2C6.9,7,7,6.8,7.3,6.8h9.5c0.2,0,0.4,0.2,0.4,0.4V12    C17.1,12.2,17,12.3,16.7,12.3z M7.7,11.6h8.7V7.6H7.7V11.6z"
+   id="path12"
+   style="fill:#1a1a1a" />
+	</g>
+	<path
+   class="st0"
+   d="M15.7,15.5H9.4c-0.2,0-0.4-0.2-0.4-0.4s0.2-0.4,0.4-0.4h6.3c0.2,0,0.4,0.2,0.4,0.4S16,15.5,15.7,15.5z"
+   id="path16"
+   style="fill:#1a1a1a" />
+	<path
+   class="st0"
+   d="M13.8,18.7H9.4c-0.2,0-0.4-0.2-0.4-0.4s0.2-0.4,0.4-0.4h4.3c0.2,0,0.4,0.2,0.4,0.4S14,18.7,13.8,18.7z"
+   id="path18"
+   style="fill:#1a1a1a" />
+	<circle
+   class="st0"
+   cx="8.1"
+   cy="15.1"
+   r="0.4"
+   id="circle20"
+   style="fill:#1a1a1a" />
+</g>
+</svg>

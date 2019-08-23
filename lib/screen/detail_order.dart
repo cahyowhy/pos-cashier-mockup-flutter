@@ -6,7 +6,6 @@ import 'package:padi_pos_kasir/component/product_item.dart';
 import 'package:padi_pos_kasir/model/order.dart';
 import 'package:padi_pos_kasir/model/product.dart';
 import 'package:padi_pos_kasir/util/StringUtil.dart';
-import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 
 class DetailOrderScreen extends StatefulWidget {
   final List<Order> _pesanans;

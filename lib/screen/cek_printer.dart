@@ -21,17 +21,35 @@ class _CekPrinterState extends State<CekPrinter> {
     super.initState();
   }
 
-  Future<void> _initPlatformState() async {
+  void _showSnackBar(String text) {
+    if (context != null) {
+      Scaffold.of(context).showSnackBar(new SnackBar(
+        content: new Text(text),
+      ));
+    }
+  }
+
+  Future<dynamic> _getBoundedDevices() async {
     List<BluetoothDevice> devices = [];
 
     try {
       devices = await _bluetooth.getBondedDevices();
     } on PlatformException catch (e) {
       debugPrint(e.toString());
+      Future.delayed(Duration.zero).then((val) {
+        _showSnackBar("Gagal mendapatkan perangkat terhubung");
+      });
     }
 
+    return devices;
+  }
+
+  _initPlatformState() {
+    _getBoundedDevices().then((devices) {
+      _setDevices(devices);
+    });
+
     _bluetooth.onStateChanged().listen((state) {
-      debugPrint(state.toString());
       switch (state) {
         case BlueThermalPrinter.CONNECTED:
           setState(() {
@@ -46,14 +64,22 @@ class _CekPrinterState extends State<CekPrinter> {
           });
           break;
         default:
-          print(state);
           break;
       }
-    });
 
-    debugPrint(devices.toString());
+      _getBoundedDevices().then((devices) {
+        _setDevices(devices);
+      });
+    });
+  }
+
+  void _setDevices(devices) {
     setState(() {
       _devices = devices;
+
+      if (_devices.length == 0) {
+        _showSnackBar('Tidak ada perangkat terpasang yang tersedia');
+      }
     });
   }
 
@@ -118,19 +144,14 @@ class _CekPrinterState extends State<CekPrinter> {
 
   void _connectBluetooth() {
     if (_device == null) {
-      Scaffold.of(context).showSnackBar(new SnackBar(
-        content: new Text('No device selected.'),
-      ));
+      _showSnackBar("No device selected.");
     } else {
       _bluetooth.isConnected.then((isConnected) async {
         if (!isConnected) {
           try {
             await _bluetooth.connect(_device);
           } on PlatformException catch (e) {
-            debugPrint(e.toString());
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text("Failed to connect bluetooth"),
-            ));
+            _showSnackBar("Failed to connect bluetooth");
 
             setState(() => _bluetoothPressed = false);
           }
