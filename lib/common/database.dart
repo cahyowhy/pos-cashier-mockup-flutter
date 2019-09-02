@@ -1,8 +1,10 @@
 import 'package:jaguar_query_sqflite/jaguar_query_sqflite.dart';
 import 'package:padi_pos_kasir/config/env.dart';
+import 'package:padi_pos_kasir/model/merchant_preference.dart';
 import 'package:padi_pos_kasir/model/product.dart';
 import 'package:padi_pos_kasir/model/product_category.dart';
 import 'package:padi_pos_kasir/model/user.dart';
+import 'package:padi_pos_kasir/util/logUtil.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
 
@@ -15,6 +17,8 @@ class Database {
 
   static UserBean _userBean;
 
+  static MerchantPreferencesBean _merchantPreferencesBean;
+
   static Future<SqfliteAdapter> getAdapter() async {
     if (Database._adapter == null) {
       await Sqflite.setDebugModeOn(env.flavor == BuildFlavor.development);
@@ -25,7 +29,7 @@ class Database {
       try {
         await Database._adapter.connect();
       } catch (e) {
-        print(e);
+        LogUtil.print(e.toString());
       }
     }
 
@@ -34,7 +38,7 @@ class Database {
 
   static Future<ProductBean> getProductBean() async {
     if (Database._productBean == null) {
-      Database.getAdapter().then((adapter) {
+      await Database.getAdapter().then((adapter) {
         Database._productBean = ProductBean(adapter);
         Database._productBean.createTable(ifNotExists: true);
       });
@@ -45,7 +49,7 @@ class Database {
 
   static Future<ProductCategoryBean> getProductCategoryBean() async {
     if (Database._productCategoryBean == null) {
-      Database.getAdapter().then((adapter) {
+      await Database.getAdapter().then((adapter) {
         Database._productCategoryBean = ProductCategoryBean(adapter);
         Database._productCategoryBean.createTable(ifNotExists: true);
       });
@@ -56,12 +60,23 @@ class Database {
 
   static Future<UserBean> getUserBean() async {
     if (Database._userBean == null) {
-      Database.getAdapter().then((adapter) {
+      await Database.getAdapter().then((adapter) {
         Database._userBean = UserBean(adapter);
         Database._userBean.createTable(ifNotExists: true);
       });
     }
 
     return Database._userBean;
+  }
+
+  static Future<MerchantPreferencesBean> getMerchantPreferencesBean() async {
+    if (Database._merchantPreferencesBean == null) {
+      await Database.getAdapter().then((adapter) {
+        Database._merchantPreferencesBean = MerchantPreferencesBean(adapter);
+        Database._merchantPreferencesBean.createTable(ifNotExists: true);
+      });
+    }
+
+    return Database._merchantPreferencesBean;
   }
 }

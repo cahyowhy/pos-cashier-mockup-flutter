@@ -76,5 +76,5 @@ String localization(List path, {dynamic param, String locale = 'ID'}) {
     }
   };
 
-  return mapGet(locals, path);
+  return mapGet(locals, ['ID', ...path]);
 }

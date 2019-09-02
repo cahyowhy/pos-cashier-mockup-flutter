@@ -1,13 +1,16 @@
 // import 'dart:io';
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:padi_pos_kasir/common/socket.dart';
 import 'package:padi_pos_kasir/screen/cashier.dart';
 import 'package:padi_pos_kasir/screen/cek_printer.dart';
 import 'package:padi_pos_kasir/screen/detail_order.dart';
 import 'package:padi_pos_kasir/screen/login.dart';
 import 'package:padi_pos_kasir/screen/product_category_screen.dart';
 import 'package:padi_pos_kasir/style/style.dart';
-// import 'package:padi_pos_kasir/service/socket.dart';
+import 'package:padi_pos_kasir/util/logUtil.dart';
 
 import 'model/order.dart';
 
@@ -28,27 +31,16 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // _consumeSocket();
-
-    // try {
-    //   InternetAddress.lookup('192.168.0.137').then((result) {
-    //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-    //       print('connected');
-    //     }
-    //   });
-    // } on SocketException catch (_) {
-    //   print('not connected');
-    // }
-
     super.initState();
   }
 
-  // void _consumeSocket() {
-  //   Socket.listenMessage((message) {
-  //     debugPrint(message.toString() + " from MAIN");
-  //   });
+  void _consumeSocket() {
+    Socket.listenMessage((message) {
+      LogUtil.print(message.toString() + " from MAIN");
+    });
 
-  //   Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');
-  // }
+    Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');
+  }
 
   Widget _buildRoute({
     @required BuildContext context,

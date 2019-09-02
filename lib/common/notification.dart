@@ -12,7 +12,7 @@ class NotifToast {
       ToastGravity position = ToastGravity.BOTTOM,
       Toast length = Toast.LENGTH_SHORT}) {
     Fluttertoast.showToast(
-      msg: (msg ?? localization(['NOTIFICATION', status])),
+      msg: (msg ?? localization(['NOTIFICATION', (status ?? '0000')])),
       toastLength: length,
       gravity: position,
       timeInSecForIos: 1,

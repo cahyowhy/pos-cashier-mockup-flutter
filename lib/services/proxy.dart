@@ -8,6 +8,7 @@ import 'package:padi_pos_kasir/config/status.dart';
 import 'package:padi_pos_kasir/services/response.dart';
 import 'package:padi_pos_kasir/util/StringUtil.dart';
 import 'package:padi_pos_kasir/config/env.dart';
+import 'package:padi_pos_kasir/util/logUtil.dart';
 
 enum Method { get, post, put, delete }
 
@@ -103,10 +104,14 @@ class ProxyService {
       finalHeader = header;
     }
 
-    String token = await Storage.readValue(key: 'token');
-
-    if (token != null && token.isNotEmpty) {
-      finalHeader['Authorization'] = token;
+    try {
+      final token = await Authentication.getToken();
+      
+      if (token != null) {
+        finalHeader['Authorization'] = token;
+      }
+    } catch (e) {
+      LogUtil.print(e.toString());
     }
 
     try {
@@ -148,7 +153,7 @@ class ProxyService {
 
       return responseProxy;
     } catch (e) {
-      print(e.toString());
+      LogUtil.print(e.toString());
 
       return Response();
     }

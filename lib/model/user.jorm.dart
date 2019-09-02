@@ -22,6 +22,8 @@ abstract class _UserBean implements Bean<User> {
   final omsUsed = BoolField('oms_used');
   final payUpfront = BoolField('pay_upfront');
   final token = StrField('token');
+  final outletIdSelected = IntField('outlet_id_selected');
+  final loginAs = StrField('login_as');
   Map<String, Field> _fields;
   Map<String, Field> get fields => _fields ??= {
         id.name: id,
@@ -39,6 +41,8 @@ abstract class _UserBean implements Bean<User> {
         omsUsed.name: omsUsed,
         payUpfront.name: payUpfront,
         token.name: token,
+        outletIdSelected.name: outletIdSelected,
+        loginAs.name: loginAs,
       };
   User fromMap(Map map) {
     User model = User();
@@ -57,6 +61,8 @@ abstract class _UserBean implements Bean<User> {
     model.omsUsed = adapter.parseValue(map['oms_used']);
     model.payUpfront = adapter.parseValue(map['pay_upfront']);
     model.token = adapter.parseValue(map['token']);
+    model.outletIdSelected = adapter.parseValue(map['outlet_id_selected']);
+    model.loginAs = adapter.parseValue(map['login_as']);
 
     return model;
   }
@@ -81,6 +87,8 @@ abstract class _UserBean implements Bean<User> {
       ret.add(omsUsed.set(model.omsUsed));
       ret.add(payUpfront.set(model.payUpfront));
       ret.add(token.set(model.token));
+      ret.add(outletIdSelected.set(model.outletIdSelected));
+      ret.add(loginAs.set(model.loginAs));
     } else if (only != null) {
       if (only.contains(id.name)) ret.add(id.set(model.id));
       if (only.contains(username.name)) ret.add(username.set(model.username));
@@ -101,6 +109,9 @@ abstract class _UserBean implements Bean<User> {
       if (only.contains(payUpfront.name))
         ret.add(payUpfront.set(model.payUpfront));
       if (only.contains(token.name)) ret.add(token.set(model.token));
+      if (only.contains(outletIdSelected.name))
+        ret.add(outletIdSelected.set(model.outletIdSelected));
+      if (only.contains(loginAs.name)) ret.add(loginAs.set(model.loginAs));
     } else /* if (onlyNonNull) */ {
       if (model.id != null) {
         ret.add(id.set(model.id));
@@ -147,6 +158,12 @@ abstract class _UserBean implements Bean<User> {
       if (model.token != null) {
         ret.add(token.set(model.token));
       }
+      if (model.outletIdSelected != null) {
+        ret.add(outletIdSelected.set(model.outletIdSelected));
+      }
+      if (model.loginAs != null) {
+        ret.add(loginAs.set(model.loginAs));
+      }
     }
 
     return ret;
@@ -169,6 +186,8 @@ abstract class _UserBean implements Bean<User> {
     st.addBool(omsUsed.name, isNullable: true);
     st.addBool(payUpfront.name, isNullable: true);
     st.addStr(token.name, isNullable: false);
+    st.addInt(outletIdSelected.name, isNullable: false);
+    st.addStr(loginAs.name, isNullable: false);
     return adapter.createTable(st);
   }
 

@@ -1,6 +1,7 @@
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:padi_pos_kasir/util/logUtil.dart';
 
 class CekPrinter extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class _CekPrinterState extends State<CekPrinter> {
     try {
       devices = await _bluetooth.getBondedDevices();
     } on PlatformException catch (e) {
-      debugPrint(e.toString());
+      LogUtil.print(e.toString());
       Future.delayed(Duration.zero).then((val) {
         _showSnackBar("Gagal mendapatkan perangkat terhubung");
       });

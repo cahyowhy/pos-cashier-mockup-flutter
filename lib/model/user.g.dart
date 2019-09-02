@@ -20,7 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..merchant = User.deserializeMapFromString(json['merchant'])
     ..businessType = User.deserializeMapFromString(json['businessType'])
     ..roleApplication = User.deserializeMapFromString(json['roleApplication'])
-    ..resource = json['resource'] as int
+    ..resource = User.deserializeResource(json['resource'])
     ..omsUsed = json['omsUsed'] as bool
     ..payUpfront = json['payUpfront'] as bool
     ..outlets = (json['outlets'] as List)

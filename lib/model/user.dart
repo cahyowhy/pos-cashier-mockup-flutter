@@ -3,15 +3,14 @@ import 'dart:convert';
 import 'package:jaguar_orm/jaguar_orm.dart';
 import 'package:jaguar_query/jaguar_query.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:padi_pos_kasir/model/basemodel.dart';
 import 'outlet.dart';
 
 part 'user.g.dart';
 part 'user.jorm.dart';
 
 @JsonSerializable(includeIfNull: false)
-class User extends BaseModel {
-  User({this.username, this.password}) : super();
+class User {
+  User({this.username, this.password});
 
   User.make(
       this.id,
@@ -67,7 +66,7 @@ class User extends BaseModel {
   String roleApplication;
 
   @Column()
-  @JsonKey(toJson: User.serializeResource)
+  @JsonKey(toJson: User.serializeResource, fromJson: User.deserializeResource)
   int resource;
 
   @Column(isNullable: true)
@@ -82,12 +81,22 @@ class User extends BaseModel {
   @JsonKey(toJson: User.serializeAsNul)
   String token;
 
+  @Column()
+  @JsonKey(ignore: true)
+  int outletIdSelected;
+
+  @Column()
+  @JsonKey(ignore: true)
+  String loginAs;
+
   static serializeAsNul(dynamic param) => null;
 
   static deserializeMapFromString(dynamic param) =>
       param != null ? json.encode(param) : "";
 
   static serializeResource(dynamic param) => "MOBILE_CASHIER";
+
+  static deserializeResource(dynamic param) => 1;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
