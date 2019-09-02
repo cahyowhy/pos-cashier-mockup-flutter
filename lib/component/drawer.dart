@@ -45,6 +45,12 @@ class CommonDrawer extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed('Printer');
           },
+        ),
+        ListTile(
+          title: Text('Product Category'),
+          onTap: () {
+            Navigator.of(context).pushNamed('ProductCategory');
+          },
         )
       ],
     ));

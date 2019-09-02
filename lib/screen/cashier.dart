@@ -14,8 +14,8 @@ class _ProductScreen {
 
   _ProductScreen({this.category, this.products});
 }
-
 class CashierScreen extends StatefulWidget {
+
   CashierScreen({Key key}) : super(key: key);
 
   @override

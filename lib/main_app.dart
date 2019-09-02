@@ -1,14 +1,15 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:padi_pos_kasir/screen/cashier.dart';
 import 'package:padi_pos_kasir/screen/cek_printer.dart';
 import 'package:padi_pos_kasir/screen/detail_order.dart';
-import 'package:padi_pos_kasir/service/socket.dart';
+import 'package:padi_pos_kasir/screen/login.dart';
+import 'package:padi_pos_kasir/screen/product_category_screen.dart';
+import 'package:padi_pos_kasir/style/style.dart';
+// import 'package:padi_pos_kasir/service/socket.dart';
 
 import 'model/order.dart';
-
-void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _consumeSocket();
+    // _consumeSocket();
 
     // try {
     //   InternetAddress.lookup('192.168.0.137').then((result) {
@@ -41,13 +42,13 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  void _consumeSocket() {
-    Socket.listenMessage((message) {
-      debugPrint(message.toString() + " from MAIN");
-    });
+  // void _consumeSocket() {
+  //   Socket.listenMessage((message) {
+  //     debugPrint(message.toString() + " from MAIN");
+  //   });
 
-    Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');
-  }
+  //   Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');
+  // }
 
   Widget _buildRoute({
     @required BuildContext context,
@@ -55,10 +56,14 @@ class _MyAppState extends State<MyApp> {
     Object arguments,
   }) {
     switch (routeName) {
+      case 'Login':
+        return LoginScreen();
       case 'Cashier':
         return CashierScreen();
       case 'Printer':
         return CekPrinter();
+      case 'ProductCategory':
+        return ProductCategoryScreen();
       case 'Order Detail':
         List<Order> pesanans = (arguments as List<Order>);
 
@@ -71,12 +76,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Padi Kasir Custom',
+      title: 'Padi Kasir',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: 'Cashier',
+      theme: CommonStyle.theme,
+      initialRoute: 'Login',
       onGenerateRoute: (RouteSettings setting) {
         return MaterialPageRoute(
           builder: (BuildContext context) {
