@@ -54,18 +54,18 @@ class BaseEntity {
   }
 
   /// convert String to Json
-  static stringToJsonMap(String param) {
+  static stringToJsonMap(String param, {defaultValue}) {
     if ((param ?? "").isNotEmpty) {
       try {
         return json.decode(param);
       } catch (e) {
         LogUtil.print(e.toString());
 
-        return {};
+        return defaultValue ?? {};
       }
     }
 
-    return {};
+    return defaultValue ?? {};
   }
 
   /// convert String to Json

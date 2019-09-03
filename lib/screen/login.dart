@@ -11,7 +11,6 @@ import 'package:padi_pos_kasir/model/user.dart';
 import 'package:padi_pos_kasir/services/user_service.dart';
 import 'package:padi_pos_kasir/style/style.dart';
 import 'package:padi_pos_kasir/util/StringUtil.dart';
-import 'package:padi_pos_kasir/util/logUtil.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -151,13 +150,7 @@ class _LoginState extends State<LoginScreen> {
         dropdowns.add(getDropdown(outlet.name, outlet.id));
       });
     } else {
-      try {
-        final menus = json.decode(_user.menu);
-        (menus as List<dynamic>)
-            .forEach((item) => dropdowns.add(getDropdown(item, item)));
-      } catch (e) {
-        LogUtil.print(e.toString());
-      }
+      _user.menuList.forEach((item) => dropdowns.add(getDropdown(item, item)));
     }
 
     return dropdowns;

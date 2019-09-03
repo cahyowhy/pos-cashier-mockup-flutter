@@ -49,8 +49,8 @@ class User extends BaseEntity {
 
   @JsonKey(ignore: true)
   @IgnoreColumn()
-  List<dynamic> get menuMap {
-    return BaseEntity.stringToJsonMap(menu);
+  List<dynamic> get menuList {
+    return BaseEntity.stringToJsonMap(menu, defaultValue: []);
   }
 
   @JsonKey(fromJson: User.deserializeMapFromString)
