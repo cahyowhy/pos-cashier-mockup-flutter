@@ -54,6 +54,6 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('omsUsed', instance.omsUsed);
   writeNotNull('payUpfront', instance.payUpfront);
   writeNotNull('outlets', instance.outlets);
-  writeNotNull('token', User.serializeAsNul(instance.token));
+  writeNotNull('token', instance.token);
   return val;
 }

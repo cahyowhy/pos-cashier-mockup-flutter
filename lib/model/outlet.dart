@@ -7,7 +7,7 @@ part 'outlet.g.dart';
 part 'outlet.jorm.dart';
 
 @JsonSerializable(includeIfNull: false)
-class Outlet  {
+class Outlet {
   Outlet({this.id, this.name});
 
   Outlet.make(
@@ -28,38 +28,27 @@ class Outlet  {
   @PrimaryKey()
   int id;
 
-  @Column()
-  String name;
+  String name = "";
 
-  @Column(isNullable: true)
-  String address;
+  String address = "";
 
-  @Column(isNullable: true)
-  String phone;
+  String phone = "";
 
-  @Column(isNullable: true)
-  String note;
+  String note = "";
 
-  @Column(isNullable: true)
-  String logoPath;
+  String logoPath = "";
 
-  @Column(isNullable: true)
-  String facebookPath;
+  String facebookPath = "";
 
-  @Column(isNullable: true)
-  String whatsappPath;
+  String whatsappPath = "";
 
-  @Column(isNullable: true)
-  String twitterPath;
+  String twitterPath = "";
 
-  @Column(isNullable: true)
-  String instagramPath;
+  String instagramPath = "";
 
-  @Column(isNullable: true)
-  int remainingDays;
+  int remainingDays = 0;
 
-  @Column(isNullable: true)
-  bool trial;
+  bool trial = true;
 
   @BelongsTo(UserBean)
   @JsonKey(ignore: true)
@@ -80,4 +69,15 @@ class OutletBean extends Bean<Outlet> with _OutletBean {
   OutletBean(Adapter adapter) : super(adapter);
 
   final String tableName = 'outlets';
+
+  Future<dynamic> insert(Outlet model,
+      {bool cascade = false, bool onlyNonNull = false, Set<String> only}) {
+    if ((model.id ?? 0) != 0) {
+      return super.update(model,
+          cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+    }
+
+    return super
+        .insert(model, cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+  }
 }

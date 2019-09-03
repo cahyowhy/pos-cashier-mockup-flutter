@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:jaguar_orm/jaguar_orm.dart';
 import 'package:jaguar_query/jaguar_query.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:padi_pos_kasir/model/base_entity.dart';
 import 'outlet.dart';
 
 part 'user.g.dart';
 part 'user.jorm.dart';
 
 @JsonSerializable(includeIfNull: false)
-class User {
+class User extends BaseEntity {
   User({this.username, this.password});
 
   User.make(
@@ -31,65 +32,71 @@ class User {
   @PrimaryKey()
   int id;
 
-  @Column()
-  String username;
+  String username = "";
 
-  @Column(isNullable: true)
-  String profileName;
+  String profileName = "";
 
-  @Column(isNullable: true)
-  String pin;
+  String pin = "";
 
-  @Column(isNullable: true)
-  String role;
+  String role = "";
 
-  @Column(isNullable: true)
-  String phone;
+  String phone = "";
 
-  @Column(isNullable: true)
-  String password;
+  String password = "";
 
-  @Column(isNullable: true)
   @JsonKey(fromJson: User.deserializeMapFromString)
-  String menu;
+  String menu = "";
 
-  @Column()
+  @JsonKey(ignore: true)
+  @IgnoreColumn()
+  List<dynamic> get menuMap {
+    return BaseEntity.stringToJsonMap(menu);
+  }
+
   @JsonKey(fromJson: User.deserializeMapFromString)
-  String merchant;
+  String merchant = "";
 
-  @Column()
+  @JsonKey(ignore: true)
+  @IgnoreColumn()
+  Map<String, dynamic> get merchantMap {
+    return BaseEntity.stringToJsonMap(merchant);
+  }
+
   @JsonKey(fromJson: User.deserializeMapFromString)
-  String businessType;
+  String businessType = "";
 
-  @Column()
+  @JsonKey(ignore: true)
+  @IgnoreColumn()
+  Map<String, dynamic> get businessTypeMap {
+    return BaseEntity.stringToJsonMap(businessType);
+  }
+
   @JsonKey(fromJson: User.deserializeMapFromString)
-  String roleApplication;
+  String roleApplication = "";
 
-  @Column()
+  @JsonKey(ignore: true)
+  @IgnoreColumn()
+  Map<String, dynamic> get roleApplicationMap {
+    return BaseEntity.stringToJsonMap(roleApplication);
+  }
+
   @JsonKey(toJson: User.serializeResource, fromJson: User.deserializeResource)
   int resource;
 
-  @Column(isNullable: true)
-  bool omsUsed;
+  bool omsUsed = false;
 
-  @Column(isNullable: true)
-  bool payUpfront;
+  bool payUpfront = false;
 
   @HasMany(OutletBean)
   List<Outlet> outlets;
 
-  @JsonKey(toJson: User.serializeAsNul)
-  String token;
+  String token = "";
 
-  @Column()
   @JsonKey(ignore: true)
-  int outletIdSelected;
+  int outletIdSelected = 0;
 
-  @Column()
   @JsonKey(ignore: true)
-  String loginAs;
-
-  static serializeAsNul(dynamic param) => null;
+  String loginAs = "";
 
   static deserializeMapFromString(dynamic param) =>
       param != null ? json.encode(param) : "";
@@ -98,9 +105,20 @@ class User {
 
   static deserializeResource(dynamic param) => 1;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) {
+    ["menu", "merchant", "businessType"].forEach((i) {
+      json[i] = BaseEntity.stringToJsonMap(json[i]);
+    });
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+    return _$UserFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    var json = _$UserToJson(this);
+    json.remove('token');
+
+    return json;
+  }
 }
 
 @GenBean()
@@ -112,4 +130,15 @@ class UserBean extends Bean<User> with _UserBean {
   final OutletBean outletBean;
 
   final String tableName = 'users';
+
+  Future<dynamic> insert(User model,
+      {bool cascade = false, bool onlyNonNull = false, Set<String> only}) {
+    if ((model.id ?? 0) != 0) {
+      return super.update(model,
+          cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+    }
+
+    return super
+        .insert(model, cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+  }
 }

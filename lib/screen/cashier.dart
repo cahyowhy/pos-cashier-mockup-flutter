@@ -79,7 +79,10 @@ class _CashierState extends State<CashierScreen> {
       });
 
       if (!hasProduct) {
-        _pesanans.add(Order(total: 1, product: p));
+        var order = Order(total: 1);
+        order.product = p;
+
+        _pesanans.add(order);
       }
     });
   }

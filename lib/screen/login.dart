@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jaguar_query_sqflite/jaguar_query_sqflite.dart';
 import 'package:padi_pos_kasir/common/database.dart';
 import 'package:padi_pos_kasir/common/notification.dart';
 import 'package:padi_pos_kasir/common/storage.dart';
@@ -87,9 +86,7 @@ class _LoginState extends State<LoginScreen> {
         var merchantPreferencesBean = responses[2] as MerchantPreferencesBean;
 
         await Future.wait([
-          userBean.removeAll(),
           userBean.insert(_user),
-          merchantPreferencesBean.removeAll(),
           merchantPreferencesBean.insert(_merchantPreferences)
         ]);
 
