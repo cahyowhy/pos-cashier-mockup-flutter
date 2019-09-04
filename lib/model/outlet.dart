@@ -27,27 +27,38 @@ class Outlet {
 
   @PrimaryKey()
   int id;
-
+  
+  @Column(isNullable: true)
   String name = "";
-
+  
+  @Column(isNullable: true)
   String address = "";
-
+  
+  @Column(isNullable: true)
   String phone = "";
-
+  
+  @Column(isNullable: true)
   String note = "";
-
+  
+  @Column(isNullable: true)
   String logoPath = "";
-
+  
+  @Column(isNullable: true)
   String facebookPath = "";
-
+  
+  @Column(isNullable: true)
   String whatsappPath = "";
-
+  
+  @Column(isNullable: true)
   String twitterPath = "";
-
+  
+  @Column(isNullable: true)
   String instagramPath = "";
-
+  
+  @Column(isNullable: true)
   int remainingDays = 0;
-
+  
+  @Column(isNullable: true)
   bool trial = true;
 
   @BelongsTo(UserBean)
@@ -71,10 +82,16 @@ class OutletBean extends Bean<Outlet> with _OutletBean {
   final String tableName = 'outlets';
 
   Future<dynamic> insert(Outlet model,
-      {bool cascade = false, bool onlyNonNull = false, Set<String> only}) {
+      {bool cascade = false,
+      bool onlyNonNull = false,
+      Set<String> only}) async {
     if ((model.id ?? 0) != 0) {
-      return super.update(model,
-          cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      var outlet = await super.find(model.id);
+
+      if (outlet != null) {
+        return super.update(model,
+            cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      }
     }
 
     return super

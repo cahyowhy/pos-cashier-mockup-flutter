@@ -31,9 +31,9 @@ class Socket {
       Socket._client.useWebSocket = true;
       Socket._client.websocketProtocols = ['mqtt'];
       Socket._client.secure = false;
-      Socket._client.pongCallback = () => LogUtil.print("pong");
-      Socket._client.onConnected = () => LogUtil.print('conn: connected');
-      Socket._client.onDisconnected = () => LogUtil.print('conn: disconected');
+      Socket._client.pongCallback = () => print("pong");
+      Socket._client.onConnected = () => print('conn: connected');
+      Socket._client.onDisconnected = () => print('conn: disconected');
     
       MqttConnectMessage connectMessage = MqttConnectMessage()
           .withWillTopic("WillMsg")
@@ -51,7 +51,7 @@ class Socket {
         await Socket._client.connect();
         Socket._subscription = Socket._client.updates.listen(Socket.onMessage);
       } catch (e) {
-        LogUtil.print("error: " + e.toString());
+        print("error: " + e.toString());
 
         _client.disconnect();
         _client = null;
@@ -70,7 +70,7 @@ class Socket {
     final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
     final String message =
         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-    LogUtil.print("cek " + message);
+    print("cek " + message);
   }
 
   static void subscribe(String topic) {
@@ -87,7 +87,7 @@ class Socket {
   static void unsubscribe(String topic) {
     Socket.getClient().then((MqttClient client) {
       if (client?.connectionStatus?.state == MqttConnectionState.connected) {
-        LogUtil.print('[MQTT client] Subscribing to ${topic.trim()}');
+        print('[MQTT client] Subscribing to ${topic.trim()}');
 
         client.unsubscribe(topic);
       } else {
@@ -104,7 +104,7 @@ class Socket {
   static void publish(String topic, dynamic payload) {
     Socket.getClient().then((MqttClient client) {
       if (client?.connectionStatus?.state == MqttConnectionState.connected) {
-        LogUtil.print('[MQTT client] Subscribing to ${topic.trim()}');
+        print('[MQTT client] Subscribing to ${topic.trim()}');
 
         client.publishMessage(topic, Socket._qos, payload);
       } else {

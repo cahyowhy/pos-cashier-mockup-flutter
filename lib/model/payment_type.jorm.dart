@@ -108,14 +108,14 @@ abstract class _PaymentTypeBean implements Bean<PaymentType> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addStr(type.name, isNullable: false);
-    st.addStr(accountName.name, isNullable: false);
-    st.addStr(accountNumber.name, isNullable: false);
-    st.addStr(validityPeriodMonth.name, isNullable: false);
-    st.addStr(validityPeriodYear.name, isNullable: false);
-    st.addBool(deleted.name, isNullable: false);
-    st.addStr(grouper.name, isNullable: false);
-    st.addStr(icon.name, isNullable: false);
+    st.addStr(type.name, isNullable: true);
+    st.addStr(accountName.name, isNullable: true);
+    st.addStr(accountNumber.name, isNullable: true);
+    st.addStr(validityPeriodMonth.name, isNullable: true);
+    st.addStr(validityPeriodYear.name, isNullable: true);
+    st.addBool(deleted.name, isNullable: true);
+    st.addStr(grouper.name, isNullable: true);
+    st.addStr(icon.name, isNullable: true);
     return adapter.createTable(st);
   }
 

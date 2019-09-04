@@ -36,7 +36,7 @@ class _CekPrinterState extends State<CekPrinter> {
     try {
       devices = await _bluetooth.getBondedDevices();
     } on PlatformException catch (e) {
-      LogUtil.print(e.toString());
+      print(e.toString());
       Future.delayed(Duration.zero).then((val) {
         _showSnackBar("Gagal mendapatkan perangkat terhubung");
       });

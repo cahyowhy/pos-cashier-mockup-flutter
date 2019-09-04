@@ -140,17 +140,17 @@ abstract class _OutletBean implements Bean<Outlet> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addStr(name.name, isNullable: false);
-    st.addStr(address.name, isNullable: false);
-    st.addStr(phone.name, isNullable: false);
-    st.addStr(note.name, isNullable: false);
-    st.addStr(logoPath.name, isNullable: false);
-    st.addStr(facebookPath.name, isNullable: false);
-    st.addStr(whatsappPath.name, isNullable: false);
-    st.addStr(twitterPath.name, isNullable: false);
-    st.addStr(instagramPath.name, isNullable: false);
-    st.addInt(remainingDays.name, isNullable: false);
-    st.addBool(trial.name, isNullable: false);
+    st.addStr(name.name, isNullable: true);
+    st.addStr(address.name, isNullable: true);
+    st.addStr(phone.name, isNullable: true);
+    st.addStr(note.name, isNullable: true);
+    st.addStr(logoPath.name, isNullable: true);
+    st.addStr(facebookPath.name, isNullable: true);
+    st.addStr(whatsappPath.name, isNullable: true);
+    st.addStr(twitterPath.name, isNullable: true);
+    st.addStr(instagramPath.name, isNullable: true);
+    st.addInt(remainingDays.name, isNullable: true);
+    st.addBool(trial.name, isNullable: true);
     st.addInt(userid.name,
         foreignTable: userBean.tableName, foreignCol: 'id', isNullable: false);
     return adapter.createTable(st);

@@ -13,10 +13,10 @@ class MerchantPreferences {
   @PrimaryKey()
   int id;
 
-  @Column()
+  @Column(isNullable: true)
   bool omsUsed;
 
-  @Column()
+  @Column(isNullable: true)
   bool payUpfront;
 
   @Column(isNullable: true)
@@ -36,10 +36,16 @@ class MerchantPreferencesBean extends Bean<MerchantPreferences>
   final String tableName = 'merchant_preferences';
 
   Future<dynamic> insert(MerchantPreferences model,
-      {bool cascade = false, bool onlyNonNull = false, Set<String> only}) {
+      {bool cascade = false,
+      bool onlyNonNull = false,
+      Set<String> only}) async {
     if ((model.id ?? 0) != 0) {
-      return super.update(model,
-          cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      var merchantPref = await super.find(model.id);
+
+      if (merchantPref != null) {
+        return super.update(model,
+            cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      }
     }
 
     return super

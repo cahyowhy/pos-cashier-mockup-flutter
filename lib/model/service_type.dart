@@ -12,16 +12,21 @@ class ServiceType extends BaseEntity {
   @PrimaryKey()
   int id;
 
+  @Column(isNullable: true)
   String serviceName = "";
 
+  @Column(isNullable: true)
   String type = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String color = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   double charges = 0;
 
+  @Column(isNullable: true)
   bool deleted = false;
 
   @IgnoreColumn()

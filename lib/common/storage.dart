@@ -16,7 +16,7 @@ class Storage {
   }
 
   static Future<dynamic> readValue({String key}) async {
-    if (key.isEmpty) {
+    if ((key ?? "").isEmpty) {
       return await getStorage().readAll();
     }
 
@@ -24,7 +24,7 @@ class Storage {
   }
 
   static Future<void> deleteValue({String key}) async {
-    if (key.isEmpty) {
+    if ((key ?? "").isEmpty) {
       await getStorage().deleteAll();
     }
 
@@ -51,11 +51,13 @@ class Authentication {
     try {
       String userStorage = await Storage.readValue(key: 'user');
 
-      if (user != null) {
-        user = User.fromJson(json.decode(userStorage));
+      if (userStorage != null) {
+        var jsonUser = json.decode(userStorage);
+
+        user = User.fromJson(jsonUser);
       }
     } catch (e) {
-      LogUtil.print(e.toString());
+      print(e);
     }
 
     return user;

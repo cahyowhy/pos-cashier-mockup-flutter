@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 
   void _consumeSocket() {
     Socket.listenMessage((message) {
-      LogUtil.print(message.toString() + " from MAIN");
+      print(message.toString() + " from MAIN");
     });
 
     Socket.subscribe('/topic/client/info/a2cf3368ae8e4f20aa0e0047e7c5ef59');

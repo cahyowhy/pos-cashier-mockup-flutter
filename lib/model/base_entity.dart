@@ -59,7 +59,7 @@ class BaseEntity {
       try {
         return json.decode(param);
       } catch (e) {
-        LogUtil.print(e.toString());
+        print(e.toString());
 
         return defaultValue ?? {};
       }
@@ -68,18 +68,33 @@ class BaseEntity {
     return defaultValue ?? {};
   }
 
-  /// convert String to Json
-  static jsonMapToString(Map param) {
+  /// convert Json Map to String
+  static jsonMapToString(Map param, {defaultValue}) {
     if ((param ?? {}).isNotEmpty) {
       try {
         return json.encode(param);
       } catch (e) {
-        LogUtil.print(e.toString());
+        print(e.toString());
 
         return "";
       }
     }
 
-    return {};
+    return "";
+  }
+
+  /// convert Json List to String
+  static jsonListToString(List param, {defaultValue}) {
+    if ((param ?? []).length > 0) {
+      try {
+        return json.encode(param);
+      } catch (e) {
+        print(e.toString());
+
+        return "";
+      }
+    }
+
+    return "";
   }
 }

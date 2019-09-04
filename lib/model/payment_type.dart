@@ -13,21 +13,29 @@ class PaymentType extends BaseEntity {
   @PrimaryKey()
   int id;
 
+  @Column(isNullable: true)
   String type = "";
 
+  @Column(isNullable: true)
   String accountName = "";
 
+  @Column(isNullable: true)
   String accountNumber = "";
 
+  @Column(isNullable: true)
   String validityPeriodMonth = "";
 
+  @Column(isNullable: true)
   String validityPeriodYear = "";
 
+  @Column(isNullable: true)
   bool deleted = false;
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String grouper = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String icon = "";
 

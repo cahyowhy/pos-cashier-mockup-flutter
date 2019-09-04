@@ -172,22 +172,22 @@ abstract class _UserBean implements Bean<User> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addStr(username.name, isNullable: false);
-    st.addStr(profileName.name, isNullable: false);
-    st.addStr(pin.name, isNullable: false);
-    st.addStr(role.name, isNullable: false);
-    st.addStr(phone.name, isNullable: false);
-    st.addStr(password.name, isNullable: false);
-    st.addStr(menu.name, isNullable: false);
-    st.addStr(merchant.name, isNullable: false);
-    st.addStr(businessType.name, isNullable: false);
-    st.addStr(roleApplication.name, isNullable: false);
-    st.addInt(resource.name, isNullable: false);
-    st.addBool(omsUsed.name, isNullable: false);
-    st.addBool(payUpfront.name, isNullable: false);
-    st.addStr(token.name, isNullable: false);
-    st.addInt(outletIdSelected.name, isNullable: false);
-    st.addStr(loginAs.name, isNullable: false);
+    st.addStr(username.name, isNullable: true);
+    st.addStr(profileName.name, isNullable: true);
+    st.addStr(pin.name, isNullable: true);
+    st.addStr(role.name, isNullable: true);
+    st.addStr(phone.name, isNullable: true);
+    st.addStr(password.name, isNullable: true);
+    st.addStr(menu.name, isNullable: true);
+    st.addStr(merchant.name, isNullable: true);
+    st.addStr(businessType.name, isNullable: true);
+    st.addStr(roleApplication.name, isNullable: true);
+    st.addInt(resource.name, isNullable: true);
+    st.addBool(omsUsed.name, isNullable: true);
+    st.addBool(payUpfront.name, isNullable: true);
+    st.addStr(token.name, isNullable: true);
+    st.addInt(outletIdSelected.name, isNullable: true);
+    st.addStr(loginAs.name, isNullable: true);
     return adapter.createTable(st);
   }
 

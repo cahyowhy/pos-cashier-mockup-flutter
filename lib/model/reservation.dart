@@ -12,12 +12,16 @@ class Reservation extends BaseEntity {
   @PrimaryKey()
   int id;
 
+  @Column(isNullable: true)
   String name = "";
 
+  @Column(isNullable: true)
   int pax = 0;
 
+  @Column(isNullable: true)
   int startTime = 0;
 
+  @Column(isNullable: true)
   int endTime = 0;
 
   @IgnoreColumn()

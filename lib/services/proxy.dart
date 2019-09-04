@@ -105,13 +105,13 @@ class ProxyService {
     }
 
     try {
-      final token = await Authentication.getToken();
+      String token = await Authentication.getToken();
       
-      if (token != null) {
+      if (token.isNotEmpty) {
         finalHeader['Authorization'] = token;
       }
     } catch (e) {
-      LogUtil.print(e.toString());
+      print(e.toString());
     }
 
     try {
@@ -153,7 +153,7 @@ class ProxyService {
 
       return responseProxy;
     } catch (e) {
-      LogUtil.print(e.toString());
+      print(e.toString());
 
       return Response();
     }

@@ -16,10 +16,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..pin = json['pin'] as String
     ..role = json['role'] as String
     ..phone = json['phone'] as String
-    ..menu = User.deserializeMapFromString(json['menu'])
-    ..merchant = User.deserializeMapFromString(json['merchant'])
-    ..businessType = User.deserializeMapFromString(json['businessType'])
-    ..roleApplication = User.deserializeMapFromString(json['roleApplication'])
+    ..menu = json['menu'] as String
+    ..merchant = json['merchant'] as String
+    ..businessType = json['businessType'] as String
+    ..roleApplication = json['roleApplication'] as String
     ..resource = User.deserializeResource(json['resource'])
     ..omsUsed = json['omsUsed'] as bool
     ..payUpfront = json['payUpfront'] as bool

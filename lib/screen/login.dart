@@ -73,24 +73,21 @@ class _LoginState extends State<LoginScreen> {
         !_isLoading && _user.outletIdSelected != null && _user.loginAs != null;
 
     if (submitValid) {
-      _isLoading = true;
-      var responses = await Future.wait([
-        Storage.writeValue('user', _user),
-        Database.getUserBean(),
-        Database.getMerchantPreferencesBean()
+      // setState(() {
+      //   _isLoading = true;
+      // });
+
+      await Storage.writeValue('user', _user.toJson());
+      var userBean = await Database.getUserBean();
+      var merchantPreffBean = await Database.getMerchantPreferencesBean();
+
+      await Future.wait([
+        userBean.insert(_user),
+        merchantPreffBean.insert(_merchantPreferences)
       ]);
 
-      if (responses.length == 3) {
-        var userBean = responses[1] as UserBean;
-        var merchantPreferencesBean = responses[2] as MerchantPreferencesBean;
-
-        await Future.wait([
-          userBean.insert(_user),
-          merchantPreferencesBean.insert(_merchantPreferences)
-        ]);
-
-        Navigator.of(context).pushNamed('Cashier');
-      }
+      //   Navigator.of(context).pushNamed('Cashier');
+      // }
     } else {
       NotifToast.showToast(
           msg: "Periksa kembali field diatas, pastikan tidak ada yang kosong");
@@ -105,9 +102,9 @@ class _LoginState extends State<LoginScreen> {
         _isLoadingInit = false;
       });
 
-      if (_user.id > 0) {
-        Navigator.of(context).pushNamed('Cashier');
-      }
+      // if ((_user.id ?? 0) > 0) {
+      //   _isChoseRoleView = true;
+      // }
     });
   }
 

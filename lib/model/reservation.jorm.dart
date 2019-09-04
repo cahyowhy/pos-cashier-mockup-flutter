@@ -72,10 +72,10 @@ abstract class _ReservationBean implements Bean<Reservation> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addStr(name.name, isNullable: false);
-    st.addInt(pax.name, isNullable: false);
-    st.addInt(startTime.name, isNullable: false);
-    st.addInt(endTime.name, isNullable: false);
+    st.addStr(name.name, isNullable: true);
+    st.addInt(pax.name, isNullable: true);
+    st.addInt(startTime.name, isNullable: true);
+    st.addInt(endTime.name, isNullable: true);
     return adapter.createTable(st);
   }
 

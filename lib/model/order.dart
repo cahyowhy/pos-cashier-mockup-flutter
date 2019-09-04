@@ -32,34 +32,48 @@ class Order extends BaseEntity {
   @PrimaryKey()
   String transactionId = "";
 
+  @Column(isNullable: true)
   int orderId = 0;
 
+  @Column(isNullable: true)
   int serviceCharge = 0;
 
+  @Column(isNullable: true)
   int promoDiscount = 0;
 
+  @Column(isNullable: true)
   int salesDiscount = 0;
 
+  @Column(isNullable: true)
   int shiftId = 0;
 
+  @Column(isNullable: true)
   int createdId = 0;
 
+  @Column(isNullable: true)
   int placeId = 0;
 
+  @Column(isNullable: true)
   double subTotal = 0;
 
+  @Column(isNullable: true)
   double cash = 0;
 
+  @Column(isNullable: true)
   double change = 0;
 
+  @Column(isNullable: true)
   double ppn = 0;
 
+  @Column(isNullable: true)
   double grandTotal = 0;
 
+  @Column(isNullable: true)
   int transactionTime = 0;
 
   //orderDetails
 
+  @Column(isNullable: true)
   int paymentTypeId = 0;
 
   @JsonKey(ignore: true)
@@ -69,8 +83,10 @@ class Order extends BaseEntity {
   @JsonKey(ignore: true)
   PaymentType paymentType = PaymentType(type: Constant.PAYMENT_CASH);
 
+  @Column(isNullable: true)
   int serviceTypeId = 0;
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String serviceTypeJson = "";
 
@@ -78,8 +94,10 @@ class Order extends BaseEntity {
   @JsonKey(ignore: true)
   ServiceType serviceType = ServiceType();
 
+  @Column(isNullable: true)
   int reservationId = 0;
 
+  @Column(isNullable: true)
   String reservationName = "";
 
   @JsonKey(ignore: true)
@@ -89,26 +107,35 @@ class Order extends BaseEntity {
   @JsonKey(ignore: true)
   Reservation reservation = Reservation();
 
+  @Column(isNullable: true)
   String customerName = "";
 
+  @Column(isNullable: true)
   String uniqShiftId = "";
 
+  @Column(isNullable: true)
   String placeName = "";
 
+  @Column(isNullable: true)
   String clientId = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String senderId = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   String serveBy = "";
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   bool synchronize = false;
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   bool isReservation = false;
 
+  @Column(isNullable: true)
   @JsonKey(ignore: true)
   bool isAllFinish = false;
 
@@ -218,7 +245,7 @@ class OrderBean extends Bean<Order> with _OrderBean {
         model.serviceTypeJson = json.encode(model.serviceType.toJson());
       }
     } catch (e) {
-      LogUtil.print(e.toString());
+      print(e.toString());
     }
 
     if ((model.transactionId ?? "").isNotEmpty) {

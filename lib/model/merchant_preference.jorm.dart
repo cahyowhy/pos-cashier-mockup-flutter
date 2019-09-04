@@ -65,8 +65,8 @@ abstract class _MerchantPreferencesBean implements Bean<MerchantPreferences> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addBool(omsUsed.name, isNullable: false);
-    st.addBool(payUpfront.name, isNullable: false);
+    st.addBool(omsUsed.name, isNullable: true);
+    st.addBool(payUpfront.name, isNullable: true);
     st.addInt(updateTime.name, isNullable: true);
     return adapter.createTable(st);
   }

@@ -80,11 +80,11 @@ abstract class _ServiceTypeBean implements Bean<ServiceType> {
   Future<void> createTable({bool ifNotExists = false}) async {
     final st = Sql.create(tableName, ifNotExists: ifNotExists);
     st.addInt(id.name, primary: true, isNullable: false);
-    st.addStr(serviceName.name, isNullable: false);
-    st.addStr(type.name, isNullable: false);
-    st.addStr(color.name, isNullable: false);
-    st.addDouble(charges.name, isNullable: false);
-    st.addBool(deleted.name, isNullable: false);
+    st.addStr(serviceName.name, isNullable: true);
+    st.addStr(type.name, isNullable: true);
+    st.addStr(color.name, isNullable: true);
+    st.addDouble(charges.name, isNullable: true);
+    st.addBool(deleted.name, isNullable: true);
     return adapter.createTable(st);
   }
 

@@ -32,19 +32,25 @@ class User extends BaseEntity {
   @PrimaryKey()
   int id;
 
+  @Column(isNullable: true)
   String username = "";
 
+  @Column(isNullable: true)
   String profileName = "";
 
+  @Column(isNullable: true)
   String pin = "";
 
+  @Column(isNullable: true)
   String role = "";
 
+  @Column(isNullable: true)
   String phone = "";
 
+  @Column(isNullable: true)
   String password = "";
 
-  @JsonKey(fromJson: User.deserializeMapFromString)
+  @Column(isNullable: true)
   String menu = "";
 
   @JsonKey(ignore: true)
@@ -53,7 +59,7 @@ class User extends BaseEntity {
     return BaseEntity.stringToJsonMap(menu, defaultValue: []);
   }
 
-  @JsonKey(fromJson: User.deserializeMapFromString)
+  @Column(isNullable: true)
   String merchant = "";
 
   @JsonKey(ignore: true)
@@ -62,7 +68,7 @@ class User extends BaseEntity {
     return BaseEntity.stringToJsonMap(merchant);
   }
 
-  @JsonKey(fromJson: User.deserializeMapFromString)
+  @Column(isNullable: true)
   String businessType = "";
 
   @JsonKey(ignore: true)
@@ -71,7 +77,7 @@ class User extends BaseEntity {
     return BaseEntity.stringToJsonMap(businessType);
   }
 
-  @JsonKey(fromJson: User.deserializeMapFromString)
+  @Column(isNullable: true)
   String roleApplication = "";
 
   @JsonKey(ignore: true)
@@ -81,43 +87,57 @@ class User extends BaseEntity {
   }
 
   @JsonKey(toJson: User.serializeResource, fromJson: User.deserializeResource)
+  @Column(isNullable: true)
   int resource;
 
+  @Column(isNullable: true)
   bool omsUsed = false;
 
+  @Column(isNullable: true)
   bool payUpfront = false;
 
   @HasMany(OutletBean)
   List<Outlet> outlets;
 
+  @Column(isNullable: true)
   String token = "";
 
   @JsonKey(ignore: true)
-  int outletIdSelected = 0;
+  @Column(isNullable: true)
+  int outletIdSelected;
 
   @JsonKey(ignore: true)
-  String loginAs = "";
-
-  static deserializeMapFromString(dynamic param) =>
-      param != null ? json.encode(param) : "";
+  @Column(isNullable: true)
+  String loginAs;
 
   static serializeResource(dynamic param) => "MOBILE_CASHIER";
 
   static deserializeResource(dynamic param) => 1;
 
   factory User.fromJson(Map<String, dynamic> json) {
-    ["menu", "merchant", "businessType"].forEach((i) {
-      json[i] = BaseEntity.stringToJsonMap(json[i]);
+    ["roleApplication", "merchant", "businessType"].forEach((i) {
+      if (json[i] is Map) {
+        json[i] = BaseEntity.jsonMapToString(json[i]);
+      }
     });
 
     return _$UserFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    var json = _$UserToJson(this);
-    json.remove('token');
+    var userJson = _$UserToJson(this);
 
-    return json;
+    if (userJson['outlets'] is List) {
+      userJson['outlets'] = (userJson['outlets'] as List<Outlet>).map((outlet) {
+        if (outlet is Outlet) {
+          return outlet.toJson();
+        }
+
+        return outlet;
+      }).toList();
+    }
+
+    return userJson;
   }
 }
 
@@ -132,10 +152,16 @@ class UserBean extends Bean<User> with _UserBean {
   final String tableName = 'users';
 
   Future<dynamic> insert(User model,
-      {bool cascade = false, bool onlyNonNull = false, Set<String> only}) {
+      {bool cascade = false,
+      bool onlyNonNull = false,
+      Set<String> only}) async {
     if ((model.id ?? 0) != 0) {
-      return super.update(model,
-          cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      var user = await super.find(model.id);
+
+      if (user != null) {
+        return super.update(model,
+            cascade: cascade, onlyNonNull: onlyNonNull, only: only);
+      }
     }
 
     return super
